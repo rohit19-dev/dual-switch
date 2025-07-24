@@ -4,8 +4,6 @@ import 'package:dualswitch/dualswitch.dart';
 
 void main() {
   test('adds one to input values', () {
-    final calculator = DualSwitch(onChanged: (value) {
-      
-    },);
+    DualSwitch(onChanged: (value) {});
   });
 }
