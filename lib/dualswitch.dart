@@ -65,18 +65,36 @@ class DualSwitchState extends State<DualSwitch> {
               children: const [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Reject", style: TextStyle(color: Color(0xff908D8D), fontSize: 12, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    "Reject",
+                    style: TextStyle(
+                      color: Color(0xff908D8D),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text("Approve", style: TextStyle(color: Color(0xff908D8D), fontSize: 12, fontWeight: FontWeight.w600)),
+                  child: Text(
+                    "Approve",
+                    style: TextStyle(
+                      color: Color(0xff908D8D),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ],
             )
           else
             Text(
               selected == 'approve' ? "Approved" : "Rejected",
-              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12),
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 12,
+              ),
             ),
 
           // Draggable Center Button
@@ -85,8 +103,8 @@ class DualSwitchState extends State<DualSwitch> {
             left: selected == null
                 ? (dragPosition + 65) // 70 = half of 140 (button width)
                 : selected == 'approve'
-                    ? 140
-                    : 0,
+                ? 140
+                : 0,
             child: GestureDetector(
               onHorizontalDragUpdate: isLocked
                   ? null
@@ -104,7 +122,11 @@ class DualSwitchState extends State<DualSwitch> {
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
-                child: SvgPicture.asset("assets/icons/left_right.svg", width: 16, height: 16,),
+                child: SvgPicture.asset(
+                  "assets/icons/left_right.svg",
+                  width: 16,
+                  height: 16,
+                ),
               ),
             ),
           ),
