@@ -11,29 +11,72 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages).
 -->
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+# DualSwitch
 
-## Features
+A lightweight Flutter package that provides a simple and customizable switch widget allowing users to take quick **Approve** or **Reject** actions with ease.
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+Ideal for use cases like approvals, verifications, moderation, or any binary decision-making UI.
 
-## Getting started
+---
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## ✨ Features
 
-## Usage
+- Toggle between **Approve** and **Reject** actions.
+- Fully customizable colors and labels.
+- Optional reset after action.
+- Clean and intuitive UI.
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
+---
 
-```dart
-const like = 'sample';
+## 🚀 Getting Started
+Add the package to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  dual_switch: ^<latest_version>
 ```
 
-## Additional information
+Then, import it:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+```dart
+import 'package:dual_switch/dual_switch.dart';
+```
+
+## 🧰 Usage
+
+Basic Example : 
+```dart
+DualSwitch(onChanged: (value) {
+    debugPrint("value : $value");
+},)
+```
+
+With Customization : 
+```dart
+DualSwitch(
+    acceptColor: Colors.green,
+    rejectColor: Colors.red,
+    acceptText: "Accept",
+    rejectText: "Reject",
+    acceptedText: "Accepted",
+    rejectedText: "Rejected",
+    reset : true,
+    onChanged: (value) {
+        debugPrint("value : $value");
+    },
+)
+```
+
+| -------------- | ---------------- | -------------- | --------------------------------------------------------- |
+| Parameter      | Type             | Default        | Description                                               |
+| -------------- | ---------------- | -------------- | --------------------------------------------------------- |
+| `onChanged`    | `Function(bool)` | **required**   | Callback when user makes a selection (`true` or `false`). |
+| `acceptColor`  | `Color`          | `Colors.green` | Color for the approve state.                              |
+| `rejectColor`  | `Color`          | `Colors.red`   | Color for the reject state.                               |
+| `acceptText`   | `String`         | `"Approve"`    | Label for approve button before selection.                |
+| `rejectText`   | `String`         | `"Reject"`     | Label for reject button before selection.                 |
+| `acceptedText` | `String`         | `"Approved"`   | Label shown after approve is selected.                    |
+| `rejectedText` | `String`         | `"Rejected"`   | Label shown after reject is selected.                     |
+| `reset`        | `bool`           | `false`        | Whether to reset to neutral state after selection.        |
+| -------------- | ---------------- | -------------- | --------------------------------------------------------- |
+

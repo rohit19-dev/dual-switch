@@ -1,11 +1,25 @@
 library dualSwitch;
 
+import 'package:dualswitch/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class DualSwitch extends StatefulWidget {
   final ValueChanged<bool>? onChanged;
-  const DualSwitch({super.key, required this.onChanged});
+  final String? acceptText, rejectText, acceptedText, rejectedText, centerIcon;
+  final Color? acceptColor,rejectColor;
+  final bool? reset;
+  const DualSwitch({super.key, 
+    required this.onChanged, 
+    this.acceptText,
+    this.acceptedText,
+    this.rejectText,
+    this.rejectedText,
+    this.acceptColor,
+    this.rejectColor,
+    this.centerIcon,
+    this.reset = true
+  });
 
   @override
   DualSwitchState createState() => DualSwitchState();
@@ -35,17 +49,27 @@ class DualSwitchState extends State<DualSwitch> {
         dragPosition = 0;
       });
     }
+
+    if(widget.reset ?? false){
+      Future.delayed(const Duration(seconds: 1)).then((value) {
+        setState(() {
+          selected = null;
+          dragPosition = 0;
+        });
+      },);
+    }
+
   }
 
   @override
   Widget build(BuildContext context) {
-    bool isLocked = selected != null;
-    Color backgroundColor = Color(0x88d9d9d9);
+    bool isLocked = (widget.reset ?? false) ? false : selected != null;
+    Color backgroundColor = AppColor.lightTextColor;
 
     if (selected == 'approve') {
-      backgroundColor = Color(0xff15C856);
+      backgroundColor = widget.acceptColor ?? AppColor.presentColor;
     } else if (selected == 'reject') {
-      backgroundColor = Color(0xffFF0004);
+      backgroundColor = widget.rejectColor ??AppColor.absentColor;
     }
 
     return AnimatedContainer(
@@ -62,39 +86,21 @@ class DualSwitchState extends State<DualSwitch> {
           if (selected == null)
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    "Reject",
-                    style: TextStyle(
-                      color: Color(0xff908D8D),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text( widget.rejectText ?? "Reject", style: TextStyle(color: AppColor.fontColor, fontSize: 12, fontWeight: FontWeight.w600)),
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    "Approve",
-                    style: TextStyle(
-                      color: Color(0xff908D8D),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+                  child: Text( widget.acceptText ?? "Approve", style: TextStyle(color: AppColor.fontColor, fontSize: 12, fontWeight: FontWeight.w600)),
                 ),
               ],
             )
           else
             Text(
-              selected == 'approve' ? "Approved" : "Rejected",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
-              ),
+              selected == 'approve' ? (widget.acceptedText ?? "Approved") : (widget.rejectedText ?? "Rejected"),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 12),
             ),
 
           // Draggable Center Button
@@ -103,8 +109,8 @@ class DualSwitchState extends State<DualSwitch> {
             left: selected == null
                 ? (dragPosition + 65) // 70 = half of 140 (button width)
                 : selected == 'approve'
-                ? 140
-                : 0,
+                    ? 140
+                    : 0,
             child: GestureDetector(
               onHorizontalDragUpdate: isLocked
                   ? null
@@ -119,14 +125,10 @@ class DualSwitchState extends State<DualSwitch> {
                 width: buttonSize,
                 height: buttonSize,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColor.whiteColor,
                   shape: BoxShape.circle,
                 ),
-                child: SvgPicture.asset(
-                  "assets/icons/left_right.svg",
-                  width: 16,
-                  height: 16,
-                ),
+                child: (widget.centerIcon != null) ? SvgPicture.asset(widget.centerIcon!, width: 32, height: 32,) : SvgPicture.asset("assets/icons/left_right.svg", width: 16, height: 16,),
               ),
             ),
           ),

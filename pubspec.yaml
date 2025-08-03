@@ -1,6 +1,6 @@
 name: dualswitch
-description: "A new Flutter package project."
-version: 1.0.0
+description: "A new Flutter package that allows user to take action from user either approve or reject"
+version: 1.0.1
 homepage: https://github.com/rohit19-dev/dual-switch.git
 repository: https://github.com/rohit19-dev/dual-switch.git
 
